@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Vocab Helper</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   </head>
+   {%spaceless%}
+   <body class="teal lighten-4">
+      <div class="container">
+         <div class="card-panel teal lighten-5">
+            <div class="container">
+               <h1 class="header teal-text" style="text-align:center;font-weight:500;">Creating your own vocab list</h1>
+               <div class="divider"></div>
+                  <div class="row"> 
+                  <form method="POST" class="col s12" action="{%url 'vocab_submittal'%}">
+                  {% csrf_token %}
+                  <div class="row">
+                       <div class="input-field col s5">
+                           <input id="book" type="text" length="20" class="validate" value="{{book}}" name="book">
+                           <label for="book">Book Name</label>
+                         </div>
+                         <div class="input-field col s5">
+                           <input type="text" id="chapter_name" length="50" class="validate" value="{{name}}" name="chapter_name">
+                           <label for="chapter_name">Chapter Name</label>
+                         </div>
+                         <div class="input-field col s2">
+                              <input type="number" id="chapter_number" class="validate" min="1" value="{{number}}" name="chapter_number"> 
+                              <label for="chapter_number">Ch. Number</label>
+                         </div>
+                   </div>
+                  <div class="row">
+                     <div class="input-field col s12">
+                        <textarea class="materialize-textarea" cols="40" id="vocabs" name="vocabs" rows="10" class="validate">{{vocabs}}</textarea>
+                        <label for="vocab">Vocabs</label>
+                     </div>
+                  </div>
+                  <div class="card-panel">Vocabs should be seperated by returns.<br>For subtitles, add "**" before the subtitle.<br>For subtitles not shown in Alphabetical Order, add "***" instead of "**".<br><span style="color: red">{% for e in error_messages %}{{e}}<br>{%endfor%}</span></div>
+                  <button type="submit" class="btn-large waves-effect tooltipped" data-position="left" data-delay="20" data-tooltip="Submit"><i class="material-icons">send</i></button>
+                  </form>
+                  </div>
+
+               <div class="divider"></div>
+               <footer>
+               <br>
+                  <a class="teal waves-effect btn-large tooltipped" href="{%url 'vocab_lists' %}" data-position="bottom" data-delay="20" data-tooltip="Back"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
+               </footer>
+            </div>
+         </div>
+         <h6 align="right">built by <a href="https://github.com/RubMing">Rub</a></h6>
+      </div>
+   </body>
+
+   {%endspaceless%}
+</html>

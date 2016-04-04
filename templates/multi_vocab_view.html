@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Vocab Helper</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   </head>
+   {%spaceless%}
+   <body class="indigo lighten-4">
+      <div class="container">
+         <div class="card-panel indigo lighten-5">
+            <div class="container">
+               <h1 class="header indigo-text" style="text-align:center;font-weight:500;">Vocabs of</h1>
+               <table class="highlight">
+               <div align="center">
+                        <ul class="collection card-panel">
+                        {%for i in chapters%}
+                           <li class="collection-item"><h6 class="header indigo-text text-lighten-2" style="text-align:center;font-weight:500;">{{i.book}} {{i.number}} {{i.name}}</h6></li>
+                        {%endfor%}
+                        {%for i in usbs%}
+                        <li class="collection-item"><h6 class="header indigo-text text-lighten-2" style="text-align:center;font-weight:500;">{{i.book}} {{i.number}} {{i.name}}</h6></li>
+                        {%endfor%}
+                        </ul>
+                  <a class="waves-effect btn-large tooltipped indigo" href="{%url 'vocab_multiselection' %}?{{current_arguments}}" data-position="top" data-delay="20" data-tooltip="Back to selection"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
+                  <a class='dropdown-button btn-large indigo' href='#' data-activates='order_selection'><i class="material-icons right">toc</i>{% if order == 'original'%}Org{%elif order == 'alphabetical'%}Alp{%endif%}</a>
+                     <ul id='order_selection' class='dropdown-content' data-position="top" data-delay="20" data-tooltip="Back">
+                        <li class=""><span class="indigo-text" style="font-size: 1rem">Order Selection</span></li>
+                        <li class="divider"></li>
+                        <li class="{% if order == 'original'%} active {%endif%} waves-effect"><a href="{%url 'vocab_multiview'%}?{{current_arguments}}" class="indigo-text">Original Order</a></li>
+                        <li class="{% if order == 'alphabetical' %} active {%endif%} waves-effect"><a href="{% url 'vocab_multiview_o' 'alphabetical'%}?{{current_arguments}}" class="indigo-text">Alphabetical Order</a></li>
+                     </ul>
+               </div>
+                  <thead>
+                     <tr>
+                        <th><h3 style="font-weight: 400">Vocabs</h3></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  {% for vocab in vocabs %}
+                     {% if '**' in vocab%}
+                     <tr>
+                        <td><h5 class="remove_stars" style="font-weight: 600">{{ vocab }}</h5></td>
+                     </tr>
+                     {% else %}
+                     <tr>
+                        <td>{{ vocab }}</td>
+                     </tr>
+                     {%endif%}
+                  {% endfor %}
+                  </tbody>
+               </table>
+               <div class="divider"></div>
+               <footer>
+               <ul class="pagination" align="center">
+                     <li class="{% if order == 'original'%} active {%endif%} waves-effect"><a href="{%url 'vocab_multiview'%}?{{current_arguments}}">Original Order</a></li>
+                     <li class="{% if order == 'alphabetical' %} active {%endif%} waves-effect"><a href="{%url 'vocab_multiview_o' 'alphabetical'%}?{{current_arguments}}">Alphabetical Order</a></li>     
+               </ul>
+                  <a class="indigo waves-effect btn-large tooltipped" href="{%url 'vocab_multiselection' %}" data-position="bottom" data-delay="20" data-tooltip="Back to selection"><i class="material-icons">navigate_before</i></a>
+               </footer>
+            </div>
+         </div>
+         <h6 align="right">built by <a href="https://github.com/RubMing">Rub</a></h6>
+      </div>
+   </body>
+      <script type="text/javascript">$(
+      function() {
+         var stars = $(".remove_stars");
+         for (i = 0; i < stars.length; i++) {
+            var elementToChange = $(".remove_stars").eq(i)
+            elementToChange.text(  elementToChange.text().replace(/\*/g,"")  )
+         }
+         })</script>
+   {%endspaceless%}
+</html>

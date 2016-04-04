@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Vocab Helper</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   </head>
+   {%spaceless%}
+   <body class="{{themecolor}} lighten-4">
+      <div class="container">
+         <div class="card-panel {{themecolor}} lighten-5">
+            <div class="container">
+                  <h1 class="header {{themecolor}}-text" style="text-align:center;font-weight:500;">Vocab Lists</h1>
+                  <h4 class="header {{themecolor}}-text" style="text-align: center">念力射精大王</h4>
+                  <h1 class="header {{themecolor}}-text" style="text-align: center">深圳河柏文叫雞唔比錢</h1>
+               <table class="highlight">
+                  <thead>
+                     <tr>
+                        <th>Book</th>
+                        <th>Chapter</th>
+                        <th>Title</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  {% for chapter in chapters %}
+                     <tr>
+                        <td style="width: 4em">{{ chapter.book }} </td>
+                        <td style="width: 4em">{{ chapter.number }}</td>
+                        <td><a href="{%url 'n_single_vocab_list' chapter_id=chapter.id%}">{{ chapter.name }}</a></td>
+                     </tr>
+                  {% endfor %}
+                  {% for chapter in usb %}
+                     <tr>
+                        <td style="width: 4em">{{ chapter.book }} </td>
+                        <td style="width: 4em">{{ chapter.number }}</td>
+                        <td><a href="{%url 'n_single_vocab_list_usb' usb='usb' chapter_id=chapter.id%}">{{ chapter.name }}</a></td>
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+               <div class="divider"></div>
+               <footer>
+                  <ul class="pagination">
+                     <li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>
+                     <li class="waves-effect {%if show == 'showusersubmit'%}active{%endif%}"><a href="{%if show == 'showusersubmit'%}{%url 'vocab_lists' %}{%else%}{%url 'vocab_lists_show' 'showusersubmit'%}{%endif%}">Show user submitted vocab lists</a></li>
+                     <li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li> 
+                  </ul>
+                  <a class="waves-effect btn-large tooltipped {{themecolor}}" href="{%url 'vocab_multiselection' %}" data-position="top" data-delay="20" data-tooltip="Multi-vocab-lists selection"><i class="material-icons">filter_list</i></a><span>&nbsp;</span>
+                  <a href="/admin" class="waves-effect btn-large tooltipped {{themecolor}}" data-position="bottom" data-delay="20" data-tooltip="Edit(Admin only)"><i class="material-icons">create</i></a><span>&nbsp;</span>
+                  <a href="{%url 'vocab_submittal'%}" class="waves-effect btn-large tooltipped {{themecolor}}" data-position="top" data-delay="20" data-tooltip="Create your own vocab list"><i class="material-icons">note_add</i></a><span>&nbsp;</span>
+                  <p>There are {{ chapters|length }} vocab list{{ chapters|length|pluralize }}{%if usb%} and {{usb|length}} user made vocab list{{usb|length|pluralize}}{%endif%} available.</p>
+               </footer>
+            </div>
+         </div>
+         <h6 align="right">built by <a href="https://github.com/RubMing">Rub</a></h6>
+      </div>
+   </body>
+   {%endspaceless%}
+</html>
