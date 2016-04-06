@@ -40,7 +40,6 @@ def vocab_sort_alp(vo):
     return vo
 
 def single_vocab_list(request, chapter_id, order='original', usb=None):
-    themecolor = ''
     if usb:
         ch = VocabListSubmitted.objects.filter(id=chapter_id)[0]
         vo = ch.vocabs.split('\n')
@@ -58,12 +57,7 @@ def multiselection(request, show = ''):
     usb = []
     if show == 'showusersubmit':
         usb = VocabListSubmitted.objects.all()
-    checked = []
-    if request.GET:
-        '''for i in request.GET:
-            if request.GET[i] == 'on':
-                checked.append(int(i))'''
-    return render(request, 'vocab_list_selection.html', {'chapters' : ch, 'checked_ids' : checked, 'usb':usb, 'show':show})
+    return render(request, 'vocab_list_selection.html', {'chapters' : ch,  'usb':usb, 'show':show})
 
 def multiview(request, order='original'):
     if not request.GET:
@@ -94,7 +88,8 @@ def multiview(request, order='original'):
 
     current_arguments = request.GET.urlencode()
 
-    return render(request, 'multi_vocab_view.html', {'vocabs' : vo, 'chapters': chs, 'order' : order, 'current_arguments':current_arguments, 'usbs' : usbs})
+    return render(request, 'multi_vocab_view.html', {'vocabs' : vo, 'chapters': chs, 'order' : order,
+                                                     'current_arguments':current_arguments, 'usbs' : usbs})
 
 def vocab_submit(request):
     if request.method == 'POST':
@@ -107,7 +102,10 @@ def vocab_submit(request):
         try:
             if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '' or len(data['book']) > 20 or len(data['name']) > 50:
                 raise
-            VocabListSubmitted.objects.create(book = data['book'], number = int(data['number']), name = data['name'], vocabs= data['vocabs'])
+            VocabListSubmitted.objects.create(book = data['book'],
+                                              number = int(data['number']),
+                                              name = data['name'],
+                                              vocabs= data['vocabs'])
         except:
             return_args = {'error_messages' : [], 'edit' : False}
             return_args.update(data)
@@ -136,7 +134,10 @@ def vocab_edit(request, vocab_id):
         try:
             if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '' or len(data['book']) > 20 or len(data['name']) > 50:
                 raise
-            vo.update(book = data['book'], number = int(data['number']), name = data['name'], vocabs= data['vocabs'])
+            vo.update(book = data['book'],
+                      number = int(data['number']),
+                      name = data['name'],
+                      vocabs= data['vocabs'])
         except:
             return_args = {'error_messages' : [], 'id': vocab_id}
             return_args.update(data)

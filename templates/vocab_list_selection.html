@@ -29,7 +29,7 @@
                         {% for chapter in chapters %}
                            <tr>
                               <td style="width: 4em;padding-top:25px;padding-left:15px">
-                                 <input class="checkboxes" type="checkbox" name="{{chapter.id}}" id="{{chapter.id}}"{%if chapter.id in checked_ids%} checked="checked"{%endif%}>
+                                 <input class="checkboxes" type="checkbox" name="{{chapter.id}}" id="{{chapter.id}}"}>
                                  <label for="{{chapter.id}}"></label>
                               </td>
                               <td style="width: 4em">{{ chapter.book }} </td>
