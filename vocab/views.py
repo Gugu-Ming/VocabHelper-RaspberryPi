@@ -68,7 +68,6 @@ def multiview(request, order='original'):
         if request.GET[i] == 'on':
             if i[0:4] == 'usb_':
                 usb_id_list.append(i[4:])
-                print(usb_id_list)
             else:
                 id_list.append(i)
     vo = []
@@ -93,7 +92,6 @@ def multiview(request, order='original'):
 
 def vocab_submit(request):
     if request.method == 'POST':
-        print(dict(request.POST))
         d = dict(request.POST)
         data = {'book':d['book'][0],
                 'number':d['chapter_number'][0],
@@ -118,13 +116,12 @@ def vocab_submit(request):
             except:
                 return_args['error_messages'].append('Chapter Number should be an integer!')
             return render(request, 'vocab_submittal.html', return_args)
-        return HttpResponseRedirect('/vocabs/showusersubmit')
+        return HttpResponseRedirect('/vocabs-showusersubmit/')
     elif request.method == 'GET':
         return render(request, 'vocab_submittal.html', {'edit' : False})
 
 def vocab_edit(request, vocab_id):
     if request.method == 'POST':
-        print(dict(request.POST))
         d = dict(request.POST)
         data = {'book':d['book'][0],
                 'number':d['chapter_number'][0],
