@@ -1,6 +1,5 @@
 *sqlite3
 .idea
-static
 staticfiles
 __pycache__
 migrations

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 ALPHABETICAL = 'alphabetical'
 
 def homepage(request):
-    return HttpResponseRedirect('/vocabs')
+    return render(request, 'homepage.html')
 
 def vocab_lists(request, show = ''):
     ch = Chapter.objects.all()
@@ -16,12 +16,16 @@ def vocab_lists(request, show = ''):
     return render(request, 'vocab_lists.html', {'chapters' : ch, 'show' : show, 'usb' : usb, 'themecolor' : 'light-blue'})
 
 def vocab_sort_alp(vo):
+    pending_remove = []
     for i in vo:
         if '***' in i:
-            vo.remove(i)
+            pending_remove.append(i)
         elif i[0:2] == '**':
             index_of_i = vo.index(i)
             vo[index_of_i] = vo[index_of_i][2:]
+
+    for i in pending_remove:
+        vo.remove(i)
 
     acsii_letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     starting_letters = []

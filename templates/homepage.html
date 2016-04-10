@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+{% load staticfiles %}
+<header>
+    <nav class="light-blue darken-2">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/vocabs" class="brand-logo">Vocab Helper</a>
+      </div>
+    </div>
+  </nav>
+</header>
+	<div class="parallax-container">
+		<div class="parallax"><img src="{% static 'Notes2.png' %}"></div>
+	</div>
+	<div class="section light-blue lighten-4">
+		<div class="row container">
+			<h2 class="header">Recked by the messy papers?</h2>
+			<h4 class="light-blue-text text-darken-1">Never carry stories of paper again.</h4>
+		</div>
+	</div>
+	<div class="parallax-container">
+		<div class="parallax"><img src="{% static 'Notes.png' %}"></div>
+	</div>
+	<div class="section light-blue lighten-4">
+		<div class="row container">
+			<h2 class="header">Tormented because of your "calligraphies"?</h2>
+			<h4 class="light-blue-text text-darken-1">Never get the wrong spelling in ugly written words again.</h4>
+		</div>
+	</div>
+    <div class="parallax-container">
+		<div class="parallax"><img src="{% static 'vl.png' %}"></div>
+	</div>
+    <div class="section light-blue lighten-4">
+		<div class="row container">
+			<h2 class="header">Introducing -- the Vocab Helper</h2>
+			<h4 class="light-blue-text text-darken-1">Conveninet revision on transportation within few easy taps.</h4>
+            <br>
+            <a href="/vocabs" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons right">done</i>Get started</a>
+            <a href="#" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons right">import_contacts</i>User guide</a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('.parallax').parallax();
+	});
+</script>
+</html>
