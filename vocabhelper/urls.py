@@ -1,4 +1,4 @@
-"""DT_Django URL Configuration
+"""vocabhelper URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', vocab.homepage),
     url(r'^vocabs/$', vocab.vocab_lists, name='vocab_lists'),
-    url(r'^vocabs-(?P<show>\w+)$', vocab.vocab_lists, name='vocab_lists_show'),
+    url(r'^vocabs-(?P<show>\w+)/$', vocab.vocab_lists, name='vocab_lists_show'),
     url(r'^vocabs/submit/$', vocab.vocab_submit, name='vocab_submittal'),
     url(r'^vocabs/edit/(?P<vocab_id>\d+)/$', vocab.vocab_edit, name='vocab_edit'),
     url(r'^vocabs/(?P<chapter_id>\d+)/$', vocab.single_vocab_list, name='n_single_vocab_list'),

@@ -1,5 +1,5 @@
 """
-WSGI config for DT_Django project.
+WSGI config for vocabhelper project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

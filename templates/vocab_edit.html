@@ -3,6 +3,12 @@
    <head>
       <title>Vocab Helper</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+      <meta name="theme-color" content="teal">
+      <!-- Windows Phone -->
+      <meta name="msapplication-navbutton-color" content="teal">
+      <!-- iOS Safari -->
+      <meta name="apple-mobile-web-app-status-bar-style" content="teal">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
@@ -39,6 +45,15 @@
                      </div>
                   </div>
                   <div class="card-panel">Vocabs should be seperated by returns.<br>For subtitles, add "**" before the subtitle.<br>For subtitles not shown in Alphabetical Order, add "***" instead of "**".<br><span style="color: red">{% for e in error_messages %}{{e}}<br>{%endfor%}</span></div>
+                  <div class="row">
+                  <div class="col s2">&nbsp;</div>
+                    <div class="input-field col s8">
+                          <i class="material-icons prefix">vpn_key</i>
+                           <input id="passcode" type="text" length="16" class="validate" value="{{passcode}}" name="passcode">
+                           <label for="passcode">Passcode</label>
+                   </div>
+                   <div class="col s2">&nbsp;</div>
+                  </div>
                   <button type="submit" class="btn-large waves-effect waves-light tooltipped" data-position="left" data-delay="20" data-tooltip="Submit"><i class="material-icons">send</i></button>
                   </form>
                   </div>

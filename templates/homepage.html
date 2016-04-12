@@ -3,6 +3,12 @@
 <head>
 	<title>Welcome</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+    <meta name="theme-color" content="#03a9f4">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#03a9f4">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#03a9f4">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
@@ -10,49 +16,82 @@
 </head>
 <body>
 {% load staticfiles %}
+{% spaceless %}
 <header>
     <nav class="light-blue darken-2">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="/vocabs" class="brand-logo">Vocab Helper</a>
+        <a href="/vocabs" class="brand-logo hideme">Vocab Helper</a>
       </div>
     </div>
   </nav>
 </header>
-	<div class="parallax-container">
+	<div class="parallax-container hideme" style="-webkit-filter:grayscale(1);">
 		<div class="parallax"><img src="{% static 'Notes2.png' %}"></div>
 	</div>
-	<div class="section light-blue lighten-4">
-		<div class="row container">
+	<div class="section light-blue lighten-3">
+		<div class="row container hideme">
 			<h2 class="header">Recked by the messy papers?</h2>
-			<h4 class="light-blue-text text-darken-1">Never carry stories of paper again.</h4>
+			<h4 class="grey-text text-darken-2">Never carry stories of paper again.</h4>
 		</div>
 	</div>
-	<div class="parallax-container">
-		<div class="parallax"><img src="{% static 'Notes.png' %}"></div>
+	<div class="parallax-container hideme">
+		<div class="parallax"><img src="{% static 'Notes.png' %}" style="-webkit-filter:grayscale(1);"></div>
 	</div>
-	<div class="section light-blue lighten-4">
-		<div class="row container">
+	<div class="section light-blue lighten-3">
+		<div class="row container hideme">
 			<h2 class="header">Tormented because of your "calligraphies"?</h2>
-			<h4 class="light-blue-text text-darken-1">Never get the wrong spelling in ugly written words again.</h4>
+			<h4 class="grey-text text-darken-2">Never get the wrong spelling in ugly written words again.</h4>
 		</div>
 	</div>
-    <div class="parallax-container">
+    <div class="parallax-container hideme">
 		<div class="parallax"><img src="{% static 'vl.png' %}"></div>
 	</div>
-    <div class="section light-blue lighten-4">
-		<div class="row container">
+    <div class="section light-blue lighten-3">
+		<div class="row container hideme">
 			<h2 class="header">Introducing -- the Vocab Helper</h2>
-			<h4 class="light-blue-text text-darken-1">Conveninet revision on transportation within few easy taps.</h4>
+			<h4 class="grey-text text-darken-2">Convenient revision on transportation within few easy taps.</h4>
             <br>
-            <a href="/vocabs" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons right">done</i>Get started</a>
-            <a href="#" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons right">import_contacts</i>User guide</a>
+            <a href="/vocabs" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons right">done</i>Get started</a><span>&nbsp;</span>
+            <a class="waves-effect waves-light btn-large light-blue darken-1" onclick="Materialize.toast('Coming Soon', 2000, 'rounded')"><i class="material-icons right">import_contacts</i>User guide</a><span>&nbsp;</span>
+            <h6 align="right">built by <a href="https://github.com/RubMing">Rub</a></h6>
 		</div>
 	</div>
 </body>
+{% endspaceless %}
+<style type="text/css">
+	.hideme{
+		opacity:0;
+	}
+</style>
 <script type="text/javascript">
-	$(function(){
+	$(function() {
 		$('.parallax').parallax();
+	});
+	$(function() {
+		$(".hideme").each( function(i) {
+			if ($(window).scrollTop() + $(window).height() > $(this).offset().top) {
+				$(this).fadeTo(2000,1);
+				console.log('qwq');
+			} 
+		});
+	});
+	$(function() {
+		$(".nav-wrapper").fadeTo(400,1);
+	});
+	$(function() {
+		/* Every time the window is scrolled ... */
+		$(window).scroll( function(){
+			/* Check the location of each desired element */
+			$('.hideme').each( function(i){
+				var bottom_of_object = $(this).offset().top;
+				var bottom_of_window = $(window).scrollTop() + $(window).height();
+				/* If the object is visible in the window, fade in it */
+				if( bottom_of_window > bottom_of_object ){
+					$(this).animate({'opacity':'1'},2000);
+				}
+			}); 
+		});	
 	});
 </script>
 </html>

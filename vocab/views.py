@@ -100,19 +100,22 @@ def vocab_submit(request):
         data = {'book':d['book'][0],
                 'number':d['chapter_number'][0],
                 'name':d['chapter_name'][0],
-                'vocabs':d['vocabs'][0],}
+                'vocabs':d['vocabs'][0],
+                'passcode':d['passcode'][0]}
         try:
-            if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '' or len(data['book']) > 20 or len(data['name']) > 50:
+            if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']) \
+                    or len(data['book']) > 20 or len(data['name']) > 50:
                 raise
             VocabListSubmitted.objects.create(book = data['book'],
                                               number = int(data['number']),
                                               name = data['name'],
-                                              vocabs= data['vocabs'])
+                                              vocabs= data['vocabs'],
+                                              passcode = data['passcode'])
         except:
             return_args = {'error_messages' : [], 'edit' : False}
             return_args.update(data)
-            if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '':
-                return_args['error_messages'].append('None of the options should be blank!')
+            if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']):
+                return_args['error_messages'].append('Please fill in all the fields')
             if len(data['book']) > 20 or len(data['name']) > 50:
                 return_args['error_messages'].append('Be careful of the word limit.')
             try:
@@ -130,22 +133,29 @@ def vocab_edit(request, vocab_id):
         data = {'book':d['book'][0],
                 'number':d['chapter_number'][0],
                 'name':d['chapter_name'][0],
-                'vocabs':d['vocabs'][0],}
+                'vocabs':d['vocabs'][0],
+                'passcode':d['passcode'][0]}
         vo = VocabListSubmitted.objects.filter(id = vocab_id)
         try:
-            if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '' or len(data['book']) > 20 or len(data['name']) > 50:
+            if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']) \
+                    or len(data['book']) > 20 or len(data['name']) > 50:
                 raise
-            vo.update(book = data['book'],
-                      number = int(data['number']),
-                      name = data['name'],
-                      vocabs= data['vocabs'])
+            if data['passcode'] != vo[0].passcode:
+                raise
+            vo.update(
+                book = data['book'],
+                number = int(data['number']),
+                name = data['name'],
+                vocabs= data['vocabs'],)
         except:
             return_args = {'error_messages' : [], 'id': vocab_id}
             return_args.update(data)
-            if data['book'] == '' or data['number'] == '' or data['name'] == '' or  data['vocabs'] == '':
-                return_args['error_messages'].append('None of the options should be blank!')
+            if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']):
+                return_args['error_messages'].append('Please fill in all fields.')
             if len(data['book']) > 20 or len(data['name']) > 50:
                 return_args['error_messages'].append('Be careful of the word limit.')
+            if data['passcode'] != vo[0].passcode:
+                return_args['error_messages'].append('Wrong passcode.')
             try:
                 int(data['number'])
             except:

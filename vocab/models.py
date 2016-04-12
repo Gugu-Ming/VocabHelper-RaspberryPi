@@ -22,6 +22,7 @@ class VocabListSubmitted(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=50)
     vocabs = models.TextField()
+    passcode = models.CharField(max_length=16)
 
     def __str__(self):
         return "{}, {}: {}".format(self.book, self.number, self.name)
