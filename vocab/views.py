@@ -104,7 +104,7 @@ def vocab_submit(request):
                 'passcode':d['passcode'][0]}
         try:
             if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']) \
-                    or len(data['book']) > 20 or len(data['name']) > 50:
+                    or len(data['book']) > 20 or len(data['name']) > 50 or len(data['passcode']) > 16:
                 raise
             VocabListSubmitted.objects.create(book = data['book'],
                                               number = int(data['number']),
@@ -117,7 +117,9 @@ def vocab_submit(request):
             if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']):
                 return_args['error_messages'].append('Please fill in all the fields')
             if len(data['book']) > 20 or len(data['name']) > 50:
-                return_args['error_messages'].append('Be careful of the word limit.')
+                return_args['error_messages'].append('Be careful of the word limits.')
+            if len(data['passcode']) > 16:
+                return_args['error_messages'].append('Too long for password')
             try:
                 int(data['number'])
             except:
@@ -153,7 +155,7 @@ def vocab_edit(request, vocab_id):
             if not(data['book'] and data['number'] and data['name'] and data['vocabs'] and data['passcode']):
                 return_args['error_messages'].append('Please fill in all fields.')
             if len(data['book']) > 20 or len(data['name']) > 50:
-                return_args['error_messages'].append('Be careful of the word limit.')
+                return_args['error_messages'].append('Be careful of the word limits.')
             if data['passcode'] != vo[0].passcode:
                 return_args['error_messages'].append('Wrong passcode.')
             try:

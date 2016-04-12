@@ -9,7 +9,7 @@ $ python3 manage.py runserver 0.0.0.0:80
 ```
 Initialize up the database by
 ```
-$python manage.py makemigrations vocab
+$ python3 manage.py makemigrations vocab
 Migrations for 'vocab':
   0001_initial.py:
     - Create model .......
