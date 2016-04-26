@@ -24,7 +24,7 @@
                <table class="highlight">
                <div align="center">
                   <a class="waves-effect waves-light btn-large tooltipped {{themecolor}}" href="{%if usb%}{%url 'vocab_lists_show' 'showusersubmit' %}{%else%}{%url 'vocab_lists' %}{%endif%}" data-position="top" data-delay="20" data-tooltip="Back"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
-                  <a class='dropdown-button btn-large {{themecolor}}' href='#' data-activates='order_selection'><i class="material-icons right">toc</i>{% if order == 'original'%}Org{%elif order == 'alphabetical'%}Alp{%endif%}</a>
+                  <a class='dropdown-button btn-large {{themecolor}}' href='#' data-activates='order_selection'><i class="material-icons right">sort</i>{% if order == 'original'%}Org{%elif order == 'alphabetical'%}Alp{%endif%}</a>
                      <ul id='order_selection' class='dropdown-content'>
                         <li ><span style="font-size: 1rem" class="{{themecolor}}-text">Order Selection</span></li>
                         <li class="divider"></li>

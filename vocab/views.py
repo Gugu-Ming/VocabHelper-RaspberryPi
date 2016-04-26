@@ -54,14 +54,22 @@ def single_vocab_list(request, chapter_id, order='original', usb=None):
         themecolor = 'orange'
     if order == ALPHABETICAL:
         vo = vocab_sort_alp(vo)
-    return render(request, 'single_vocab_lists.html', {'chapter' : ch, 'vocabs' : vo, 'order' : order,'usb':usb, 'themecolor' : themecolor})
+    return render(request, 'single_vocab_lists.html', 
+        {'chapter' : ch,
+         'vocabs' : vo,
+         'order' : order,
+         'usb':usb, 
+         'themecolor' : themecolor})
 
 def multiselection(request, show = ''):
     ch = Chapter.objects.all()
     usb = []
     if show == 'showusersubmit':
         usb = VocabListSubmitted.objects.all()
-    return render(request, 'vocab_list_selection.html', {'chapters' : ch,  'usb':usb, 'show':show})
+    return render(request, 'vocab_list_selection.html', 
+        {'chapters' : ch,  
+        'usb':usb, 
+        'show':show})
 
 def multiview(request, order='original'):
     if not request.GET:
@@ -91,8 +99,12 @@ def multiview(request, order='original'):
 
     current_arguments = request.GET.urlencode()
 
-    return render(request, 'multi_vocab_view.html', {'vocabs' : vo, 'chapters': chs, 'order' : order,
-                                                     'current_arguments':current_arguments, 'usbs' : usbs})
+    return render(request, 'multi_vocab_view.html', 
+        {'vocabs' : vo, 
+        'chapters': chs, 
+        'order' : order,
+        'current_arguments':current_arguments, 
+        'usbs' : usbs})
 
 def vocab_submit(request):
     if request.method == 'POST':
@@ -173,3 +185,7 @@ def vocab_edit(request, vocab_id):
                 'vocabs':vo.vocabs,
                 'id':vocab_id,
                 'edit': True,})
+
+def fortress(request):
+    content = '<a href="http://www.fortress.com.hk/tc/home/"> 豐澤係度呀 </a>'
+    return HttpResponse(content=content)

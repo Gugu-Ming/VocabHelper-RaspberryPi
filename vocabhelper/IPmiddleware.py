@@ -1,6 +1,6 @@
 class IPMiddleware(object):
     def process_request(self, request):
-        print(get_client_ip(request) + ' requested:')
+        print('Request from {0}:' .format( str(get_client_ip(request)) ))
         return None
 
 

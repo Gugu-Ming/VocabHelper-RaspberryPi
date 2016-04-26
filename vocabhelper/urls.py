@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^vocabs/multiselection-(?P<show>\w+)/$', vocab.multiselection, name='vocab_multiselection_usb'),
     url(r'^vocabs/multiview/$', vocab.multiview, name='vocab_multiview'),
     url(r'^vocabs/multiview-(?P<order>\w+)/$', vocab.multiview, name='vocab_multiview_o'),
+    url(r'^fortress/$', vocab.fortress)
 ]
