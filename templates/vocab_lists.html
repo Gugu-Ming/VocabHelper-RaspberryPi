@@ -56,7 +56,7 @@
                      <li class="waves-effect {%if show == 'showusersubmit'%}active{%endif%}"><a href="{%if show == 'showusersubmit'%}{%url 'vocab_lists' %}{%else%}{%url 'vocab_lists_show' 'showusersubmit'%}{%endif%}">Show user submitted vocab lists</a></li>
                      <!--<li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li>-->
                   </ul>
-                  <a class="waves-effect waves-light btn-large tooltipped {{themecolor}}" href="{%url 'vocab_multiselection' %}" data-position="top" data-delay="20" data-tooltip="Multi-vocab-lists selection"><i class="material-icons right">playlist_add</i>禁下我得唔得姐普街:&lt;</a><span>&nbsp;</span>
+                  <a class="waves-effect waves-light btn-large tooltipped {{themecolor}}" href="{%url 'vocab_multiselection' %}" data-position="top" data-delay="20" data-tooltip="Multi-vocab-lists selection"><i class="material-icons right">playlist_add</i></a><span>&nbsp;</span>
                   <a href="/admin" class="waves-effect waves-light btn-large tooltipped {{themecolor}}" data-position="bottom" data-delay="20" data-tooltip="Edit(Admin only)"><i class="material-icons">create</i></a><span>&nbsp;</span>
                   <a href="{%url 'vocab_submittal'%}" class="waves-effect waves-light btn-large tooltipped {{themecolor}}" data-position="top" data-delay="20" data-tooltip="Create your own vocab list"><i class="material-icons">note_add</i></a><span>&nbsp;</span>
                   <p>There are {{ chapters|length }} vocab list{{ chapters|length|pluralize }}{%if usb%} and {{usb|length}} user made vocab list{{usb|length|pluralize}}{%endif%} available.</p>

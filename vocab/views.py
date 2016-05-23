@@ -187,5 +187,20 @@ def vocab_edit(request, vocab_id):
                 'edit': True,})
 
 def fortress(request):
-    content = '<a href="http://www.fortress.com.hk/tc/home/"> 豐澤係度呀 </a>'
-    return HttpResponse(content=content)
+    import threading
+    from time import sleep
+
+    def neko(time):
+        sleep(time)
+        print("Tread ended")
+
+    t = threading.Thread(target=neko, args=(5,), name="nekopara")
+    t.start()
+
+    i = 0
+    for a in threading.enumerate():
+        if a.name == "nekopara":
+            print("meow", i)
+        i = i + 1
+
+    return HttpResponse("Look at the console and see the magic happens!")
