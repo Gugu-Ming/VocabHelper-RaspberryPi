@@ -225,13 +225,13 @@ def dictation(request):
     for i in vocabs:
         if i == '' or i == '\r':
             vocabs.remove(i)
-    dictationlist = [x.split("//") for x in vocabs]
+    dictationlist = [x.replace("\r", "").split("//") for x in vocabs]
 
     for th in threading.enumerate():
         if th.name == "dictation":
-            HttpResponse("Please stop all current dictations before starting a new dictation.")
+            return HttpResponse("Please stop all current dictations before starting a new dictation.")
 
-    t = threading.Thread(target = lcdcontroller.main, args=(dictationlist), name="dictation")
+    t = threading.Thread(target = lcdcontroller.main, args=(dictationlist,), name="dictation")
     t.start()
 
     return HttpResponse("Dictation has started")

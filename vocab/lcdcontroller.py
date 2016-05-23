@@ -119,6 +119,7 @@ def main(strings):
     GPIO.output(LED_INDICATOR, 0)
     
     GPIO.cleanup()
+    print("GPIO cleanuped")
 
     # Send some test
     # lcd_string("Rasbperry Pi",LCD_LINE_1)
