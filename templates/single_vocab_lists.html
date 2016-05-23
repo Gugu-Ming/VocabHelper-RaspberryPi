@@ -68,7 +68,8 @@
                {%endif%}
                   </ul>
                   <a class="{{themecolor}} waves-effect waves-light btn-large tooltipped" href="{%if usb%}{%url 'vocab_lists_show' 'showusersubmit' %}{%else%}{%url 'vocab_lists' %}{%endif%}" data-position="bottom" data-delay="20" data-tooltip="Back"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
-                  <a href="{%if usb%}{%url 'vocab_edit' chapter.id%}{%else%}/admin/vocab/chapter/{{chapter.id}}/change/{%endif%}" class="{{themecolor}} waves-effect waves-light btn-large tooltipped" data-position="bottom" data-delay="20" data-tooltip="Edit"><i class="material-icons">create</i></a>
+                  <a href="{%if usb%}{%url 'vocab_edit' chapter.id%}{%else%}/admin/vocab/chapter/{{chapter.id}}/change/{%endif%}" class="{{themecolor}} waves-effect waves-light btn-large tooltipped" data-position="bottom" data-delay="20" data-tooltip="Edit"><i class="material-icons">create</i></a><span>&nbsp;</span>
+                  <a href="{%url 'dictation'%}{%if usb%}?usb_{{chapter.id}}=on{%else%}?{{chapter.id}}=on{%endif%}" class="{{themecolor}} waves-effect waves-light btn-large tooltipped" data-position="bottom" data-delay="20" data-tooltip="Dictation"><i class="material-icons">record_voice_over</i></a>
                </footer>
             </div>
          </div>

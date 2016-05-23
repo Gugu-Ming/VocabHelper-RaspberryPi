@@ -64,7 +64,8 @@
                      <li class="{% if order == 'original'%} active {%endif%} waves-effect"><a href="{%url 'vocab_multiview'%}?{{current_arguments}}">Original Order</a></li>
                      <li class="{% if order == 'alphabetical' %} active {%endif%} waves-effect"><a href="{%url 'vocab_multiview_o' 'alphabetical'%}?{{current_arguments}}">Alphabetical Order</a></li>     
                </ul>
-                  <a class="indigo waves-light waves-effect btn-large tooltipped" href="{%url 'vocab_multiselection' %}" data-position="bottom" data-delay="20" data-tooltip="Back to selection"><i class="material-icons">navigate_before</i></a>
+                  <a class="indigo waves-light waves-effect btn-large tooltipped" href="{%url 'vocab_multiselection' %}" data-position="bottom" data-delay="20" data-tooltip="Back to selection"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
+                  <a href="{%url 'dictation'%}?{{current_arguments}}" class="indigo waves-effect waves-light btn-large tooltipped" data-position="bottom" data-delay="20" data-tooltip="Dictation"><i class="material-icons">record_voice_over</i></a>
                </footer>
             </div>
          </div>

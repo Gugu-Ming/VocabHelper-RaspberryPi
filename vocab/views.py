@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Chapter, Book, VocabListSubmitted
 from .forms import VocabSubmittal
 from django.http import HttpResponseRedirect, HttpResponse, Http404
+import vocab.lcdcontroller as lcdcontroller
+import threading
 
 ALPHABETICAL = 'alphabetical'
 
@@ -10,9 +12,7 @@ def homepage(request):
 
 def vocab_lists(request, show = ''):
     ch = Chapter.objects.all()
-    usb = []
-    if show == 'showusersubmit':
-         usb = VocabListSubmitted.objects.all()
+    usb = VocabListSubmitted.objects.all()
     return render(request, 'vocab_lists.html', {'chapters' : ch, 'show' : show, 'usb' : usb, 'themecolor' : 'light-blue'})
 
 def vocab_sort_alp(vo):
@@ -51,7 +51,7 @@ def single_vocab_list(request, chapter_id, order='original', usb=None):
     else:
         ch = Chapter.objects.filter(id=chapter_id)[0]
         vo = ch.vocabs.split('\n')
-        themecolor = 'orange'
+        themecolor = 'teal'
     if order == ALPHABETICAL:
         vo = vocab_sort_alp(vo)
     return render(request, 'single_vocab_lists.html', 
@@ -63,9 +63,7 @@ def single_vocab_list(request, chapter_id, order='original', usb=None):
 
 def multiselection(request, show = ''):
     ch = Chapter.objects.all()
-    usb = []
-    if show == 'showusersubmit':
-        usb = VocabListSubmitted.objects.all()
+    usb = VocabListSubmitted.objects.all()
     return render(request, 'vocab_list_selection.html', 
         {'chapters' : ch,  
         'usb':usb, 
@@ -187,9 +185,7 @@ def vocab_edit(request, vocab_id):
                 'edit': True,})
 
 def fortress(request):
-    import threading
     from time import sleep
-
     def neko(time):
         sleep(time)
         print("Tread ended")
@@ -204,3 +200,38 @@ def fortress(request):
         i = i + 1
 
     return HttpResponse("Look at the console and see the magic happens!")
+
+def dictation(request):
+    vocabs = []
+    for key in request.GET:
+        if 'usb' in key:
+            key = key.split('_')
+            usb = VocabListSubmitted.objects.filter(id=int(key[1]))[0]
+            query_vocabs = usb.vocabs.split("\n")
+            vocabs += query_vocabs
+        else:
+            query_vocabs = Chapter.objects.filter(id=int(key))[0].vocabs.split('\n')
+            vocabs += query_vocabs
+    vocabs = list(set(vocabs))
+    pending_remove = []
+    for i in vocabs:
+        if '***' in i:
+            pending_remove.append(i)
+        elif i[0:2] == '**':
+            index_of_i = vocabs.index(i)
+            vocabs[index_of_i] = vocabs[index_of_i][2:]
+    for i in pending_remove:
+        vocabs.remove(i)
+    for i in vocabs:
+        if i == '' or i == '\r':
+            vocabs.remove(i)
+    dictationlist = [x.split("//") for x in vocabs]
+
+    for th in threading.enumerate():
+        if th.name == "dictation":
+            HttpResponse("Please stop all current dictations before starting a new dictation.")
+
+    t = threading.Thread(target = lcdcontroller.main, args=(dictationlist), name="dictation")
+    t.start()
+
+    return HttpResponse("Dictation has started")

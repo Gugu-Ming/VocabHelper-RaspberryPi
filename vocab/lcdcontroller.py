@@ -88,10 +88,12 @@ def main(strings):
     for vocab in strings:
       if ifbreak:
         break
-      if vocab[0]:
+      if len(vocab) >= 1:
         lcd_string(vocab[0], LCD_LINE_1)
-      if vocab[1]:
+      if len(vocab) >= 2:
         lcd_string(vocab[1], LCD_LINE_2)
+      else:
+        lcd_string('', LCD_LINE_2)
       os.system('espeak "%s" 2>/dev/null' % vocab[0])
 
       while True:

@@ -59,11 +59,7 @@
                      </table>
                      <div class="divider"></div>
                   <footer>
-                  <ul class="pagination">
-                     <li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>
-                     <li class="waves-effect {%if show == 'showusersubmit'%}active{%endif%}"><a href="{%if show == 'showusersubmit'%}{%url 'vocab_multiselection' %}{%else%}{%url 'vocab_multiselection_usb' 'showusersubmit'%}{%endif%}">Show user submitted vocab lists</a></li>
-                     <li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li> 
-                  </ul>
+                  <br>
                   <div class="row">
                      <a class="indigo waves-effect waves-light btn-large tooltipped" href="{%url 'vocab_lists' %}" data-position="bottom" data-delay="20" data-tooltip="Back"><i class="material-icons">navigate_before</i></a><span>&nbsp;</span>
                      <a class="indigo btn-large waves-effect waves-light tooltipped" id="reset" data-position="bottom" data-delay="20" data-tooltip="Clear"><i class="material-icons">clear</i></a><span>&nbsp;</span>
