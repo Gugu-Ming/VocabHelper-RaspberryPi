@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+import vocab.lcdcontroller as lcd
+import threading
+import time
 import vocab.views as vocab
 
 urlpatterns = [
@@ -35,3 +38,24 @@ urlpatterns = [
     url(r'^fortress/$', vocab.fortress),
     url(r'^vocabs/dictation/$', vocab.dictation, name='dictation'),
 ]
+
+def timedisplay():
+    import vocab.lcdcontroller as lcd
+    timenow = ""
+    while True:
+        is_dictationing = False
+        for t in threading.enumerate():
+            if t.name == "dictation":
+                is_dictationing = True
+        if not is_dictationing:
+            timenew = time.strftime("%I:%M:%S %p")
+            if timenew != timenow:
+                timenow = timenew
+                lcd.displaystr(timenow)
+            time.sleep(0.1)
+            
+
+lcd.lcd_init()
+print(time.strftime("%I:%M:%S %p"))
+t = threading.Thread(target = timedisplay, name="timedisplay")
+t.start()

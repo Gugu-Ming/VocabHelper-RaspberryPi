@@ -63,29 +63,30 @@ BUTTON_2 = 15
 # Timing constants
 E_PULSE = 0.0005
 E_DELAY = 0.0005
+
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)       # Use BCM GPIO numbers
+GPIO.setup(LCD_E, GPIO.OUT)  # E
+GPIO.setup(LCD_RS, GPIO.OUT) # RS
+GPIO.setup(LCD_D4, GPIO.OUT) # DB4
+GPIO.setup(LCD_D5, GPIO.OUT) # DB5
+GPIO.setup(LCD_D6, GPIO.OUT) # DB6
+GPIO.setup(LCD_D7, GPIO.OUT) # DB7
+GPIO.setup(LED_INDICATOR, GPIO.OUT)
+GPIO.setup(BUTTON_1, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(BUTTON_2, GPIO.IN, GPIO.PUD_UP)
  
+
 def main(strings):
-  # Main program block
-  GPIO.setwarnings(False)
-  GPIO.setmode(GPIO.BCM)       # Use BCM GPIO numbers
-  GPIO.setup(LCD_E, GPIO.OUT)  # E
-  GPIO.setup(LCD_RS, GPIO.OUT) # RS
-  GPIO.setup(LCD_D4, GPIO.OUT) # DB4
-  GPIO.setup(LCD_D5, GPIO.OUT) # DB5
-  GPIO.setup(LCD_D6, GPIO.OUT) # DB6
-  GPIO.setup(LCD_D7, GPIO.OUT) # DB7
-  GPIO.setup(LED_INDICATOR, GPIO.OUT)
-  GPIO.setup(BUTTON_1, GPIO.IN, GPIO.PUD_UP)
-  GPIO.setup(BUTTON_2, GPIO.IN, GPIO.PUD_UP)
- 
   # Initialise display
-  lcd_init()
  
   random.shuffle(strings)
 
   try:
     ifbreak = False
     for vocab in strings:
+      GPIO.output(LED_INDICATOR, 1)
       if ifbreak:
         break
       if len(vocab) >= 1:
@@ -94,12 +95,11 @@ def main(strings):
         lcd_string(vocab[1], LCD_LINE_2)
       else:
         lcd_string('', LCD_LINE_2)
-      os.system('espeak "%s" 2>/dev/null' % vocab[0])
+      os.system('espeak "%s" 2>/dev/null' % vocab[0].replace('"', ''))
 
       while True:
         if GPIO.input(BUTTON_1) == False:
           print("button1 pressed")
-          GPIO.output(LED_INDICATOR ,1)
           break
         if GPIO.input(BUTTON_2) == False:
           print("button2 pressed")
@@ -108,23 +108,33 @@ def main(strings):
         else:
           GPIO.output(LED_INDICATOR, 0)
   except:
-    pass
+    lcd_string("ERROR OCCURED", LCD_LINE_1)
+    time.sleep(2)
   finally:
-    lcd_string("", LCD_LINE_2)
     if ifbreak:
-      endstr = "FORCE ENDING..."
+      endstr = "force ended"
     else:
-      endstr = "ENDED"
-    lcd_string(endstr, LCD_LINE_1)
+      endstr = "ended"
+    lcd_string("Dictation is", LCD_LINE_1)
+    lcd_string(endstr, LCD_LINE_2)
+    time.sleep(2)
     GPIO.output(LED_INDICATOR, 0)
     
-    GPIO.cleanup()
-    print("GPIO cleanuped")
 
     # Send some test
     # lcd_string("Rasbperry Pi",LCD_LINE_1)
     
  
+def displaystr(line1,line2=""):
+  # Main program block
+   
+  lcd_string(line1, LCD_LINE_1)
+  lcd_string(line2, LCD_LINE_2)
+  
+
+    # Send some test
+    # lcd_string("Rasbperry Pi",LCD_LINE_1)
+
 def lcd_init():
   # Initialise display
   lcd_byte(0x33,LCD_CMD) # 110011 Initialise
